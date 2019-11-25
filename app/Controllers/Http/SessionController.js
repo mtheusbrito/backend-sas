@@ -6,10 +6,6 @@ class SessionController {
     const token = await auth.attempt(email, password);
     return token;
   }
-
-  async teste() {
-    return "asdf;";
-  }
 }
 
 module.exports = SessionController;
