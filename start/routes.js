@@ -21,3 +21,7 @@ Route.group(()=> {
 
 }).middleware('auth');
 
+Route.group(()=>{
+  Route.post('invites', 'InviteController.store')
+}).middleware(['auth', 'team' ]);
+
