@@ -1,6 +1,8 @@
 "use strict";
 
+const Role = use('Adonis/Acl/Role')
 class TeamController {
+
   async index({ auth }) {
     const teams = await auth.user.teams().fetch();
     return teams;
@@ -13,6 +15,10 @@ class TeamController {
       user_id: auth.user.id
     });
 
+    //adicionando usuario como administrador, assim que o proprio criar o time.
+    const teamJoin = await auth.user.teamJoins().where('team_id', team.id).first();
+    const admin = await Role.findBy('slug', 'administrator');
+    await teamJoin.roles().attach([admin.id]);
     return team;
   }
 
